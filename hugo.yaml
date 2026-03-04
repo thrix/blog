@@ -1,0 +1,98 @@
+baseURL: "https://vadkerti.net/"
+languageCode: "en-us"
+title: "thrix's blog"
+theme: "PaperMod"
+pagination:
+  pagerSize: 10
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production
+  title: "thrix's blog"
+  description: "Personal blog about Linux, open source, and technology"
+  keywords: [Blog, Linux, Open Source, Technology]
+  author: "thrix"
+  defaultTheme: auto
+  disableThemeToggle: false
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: false
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: false
+
+  homeInfoParams:
+    Title: "Hi, I'm Miroslav Vadkerti"
+    Content: >
+      Sr Principal Software Engineer at [Red Hat](https://www.redhat.com/),
+      leading the [Testing Farm](https://testing-farm.io/) team. I build CI
+      testing infrastructure for Fedora, RHEL, and CentOS Stream. Linux desktop
+      enthusiast running a custom [BlueBuild](https://blue-build.org/) image on
+      Fedora Atomic Desktops. I write about Linux, open source, and technology.
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/thrix"
+    - name: gitlab
+      url: "https://gitlab.com/mvadkert"
+    - name: linkedin
+      url: "https://www.linkedin.com/in/miroslav-vadkerti-16119120"
+    - name: mastodon
+      url: "https://fosstodon.org/@thrix"
+
+  cover:
+    hidden: false
+    hiddenInList: false
+    hiddenInSingle: false
+
+  editPost:
+    URL: "https://github.com/thrix/blog/tree/main/content"
+    Text: "Suggest Changes"
+    appendFilePath: true
+
+  assets:
+    disableHLJS: true
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+menu:
+  main:
+    - identifier: archives
+      name: Archives
+      url: /archives/
+      weight: 10
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 20
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 30

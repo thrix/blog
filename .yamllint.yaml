@@ -1,0 +1,19 @@
+---
+extends: default
+
+rules:
+  # CI workflows and Hugo config naturally have long lines
+  line-length: disable
+  # Hugo config doesn't start with ---
+  document-start: disable
+  # Hugo uses bare yes/no/on/off values
+  truthy:
+    check-keys: false
+    allowed-values: ["true", "false", "yes", "no"]
+  comments:
+    min-spaces-from-content: 1
+
+ignore:
+  - themes/
+  - public/
+  - resources/

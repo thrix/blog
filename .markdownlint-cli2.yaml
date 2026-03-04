@@ -1,0 +1,19 @@
+config:
+  # Allow inline HTML (Hugo shortcodes and raw HTML)
+  MD033: false
+  # Allow first line to not be a heading (front matter)
+  MD041: false
+  # Line length - disable for blog posts
+  MD013: false
+  # Allow duplicate headings in different sections
+  MD024:
+    siblings_only: true
+
+globs:
+  - "content/**/*.md"
+  - "*.md"
+
+ignores:
+  - "themes/**"
+  - "public/**"
+  - "resources/**"
