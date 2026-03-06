@@ -1,9 +1,9 @@
 ---
-title: "Debugging Stuck tmt Processes with Claude Code"
+title: "How a Single Regex Stalled 30 Testing Farm Jobs for Hours"
 date: 2026-03-06
 draft: false
-tags: ["testing-farm", "tmt", "debugging", "python", "regex", "claude-code"]
-summary: "How I used Claude Code to debug stuck Testing Farm jobs in minutes — tracing the problem from process list through Python stack traces to a catastrophic regex backtracking bug in tmt."
+tags: ["testing-farm", "tmt", "debugging", "python", "regex"]
+summary: "Tracing stuck Testing Farm jobs from process list through Python stack traces to a catastrophic regex backtracking bug in tmt — caused by a 1M-character line in test output."
 ---
 
 We received a support request reporting ~30
@@ -203,16 +203,24 @@ process appears stuck — high CPU usage but no progress.
 
 ## The fix
 
-This is a [tmt](https://github.com/teemtee/tmt) bug. A proper fix could:
+This is a [tmt](https://github.com/teemtee/tmt) bug. The fix is to replace the
+single `re.findall()` call with a line-by-line `re.search()` without the
+leading/trailing `.*`:
 
-- **Limit line length** before applying the regex (skip or truncate lines over
-  a threshold)
-- **Use a non-backtracking pattern** like iterating line by line with a simple
-  substring check (`"error" in line.lower() or "fail" in line.lower()`)
-- **Set a regex timeout** (Python 3.13+ doesn't have built-in regex timeouts,
-  but the operation could be wrapped with a signal-based timeout)
+```python
+return [
+    line for line in log.splitlines()
+    if re.search(r'\b(?:error|fail)\b', line, re.IGNORECASE)
+    ]
+```
 
-The user-side workaround is to avoid dumping massive single-line outputs (like
+This is a simple linear scan — O(n) per line with no backtracking. On the same
+1.6 MB file that caused the hang, the fix completes in **1.1 seconds**.
+
+The fix has been submitted upstream as
+[teemtee/tmt#4658](https://github.com/teemtee/tmt/pull/4658).
+
+As a user-side workaround, avoid dumping massive single-line outputs (like
 base64 attestation blobs) into test logs — for example, by disabling `bash -x`
 tracing around commands that produce such output.
 
