@@ -55,6 +55,8 @@ params:
       url: "https://www.linkedin.com/in/miroslav-vadkerti-16119120"
     - name: mastodon
       url: "https://fosstodon.org/@thrix"
+    - name: rss
+      url: "/index.xml"
 
   cover:
     hidden: false
