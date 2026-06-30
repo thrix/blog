@@ -1,7 +1,7 @@
 ---
 title: "A DNS Record That Existed Everywhere Except CI"
 date: 2026-06-30
-draft: true
+draft: false
 tags: ["dns", "testing-farm", "kubernetes", "coredns", "aws", "debugging"]
 summary: "A flaky CI failure where a freshly-created DNS record was unresolvable from inside the cluster, but resolved fine from my laptop a few minutes later. The culprit was negative DNS caching, driven by the zone's SOA, poisoning lookups for our ephemeral per-job records."
 ---
