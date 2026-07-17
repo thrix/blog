@@ -1,7 +1,7 @@
 ---
 title: "The Dumb Git Protocol That Flooded Our Git Server"
 date: 2026-07-17
-draft: true
+draft: false
 tags: ["git", "testing-farm", "tmt", "http", "debugging"]
 summary: "A CI clone spike pulled terabytes off an internal git server and caused an outage. The cause was one URL pointing at git's dumb HTTP protocol, which makes every fresh clone re-fetch a repo object by object."
 ---
