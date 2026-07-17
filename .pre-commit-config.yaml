@@ -30,7 +30,7 @@ repos:
       - id: codespell
         args:
           - --skip=themes,public,resources,.git,archetypes
-          - --ignore-words-list=fo
+          - --ignore-words-list=fo,ser
           - --builtin=clear,rare,informal
 
   - repo: https://github.com/DavidAnson/markdownlint-cli2
