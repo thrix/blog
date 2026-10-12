@@ -94,10 +94,10 @@ this block near the top:
 **NEVER** pass tokens, credentials, API keys, or secrets as arguments to Bash commands, curl, or any tool that sends data externally.
 Tokens must NEVER be sent to Anthropic or any third party.
 If you find yourself about to do this — STOP IMMEDIATELY, warn the user loudly, and refuse to proceed.
+When a command needs a token, resolve it with `$(...)` inside the command so the value stays out of the transcript.
 ```
 
-Plus a companion rule wherever a tool needs a bearer token: "Resolve every token
-with `$(...)` inside the command so the value stays out of the transcript."
+The last line is for commands like this one:
 
 ```console
 $ curl -s -H "Authorization: Bearer $(gh auth token)" \
@@ -112,7 +112,7 @@ It helps. The agent warns me when it's about to touch a credential, and it
 rewrites commands to use `$(...)`. When it flags a leak after the fact, rotate
 the token right away, because the transcript already has it.
 
-A rule in CLAUDE.md is advice. Nothing enforces it, a long session can drift
+**A rule in CLAUDE.md is advice.** Nothing enforces it, a long session can drift
 away from it, and a prompt injection is just more text competing with it.
 Detection after a leak doesn't un-leak anything. A `PreToolUse` hook running a
 secret scanner over tool inputs would be the enforced version, but even then the
